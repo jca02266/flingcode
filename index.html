@@ -93,28 +93,28 @@
       <v-main>
         <v-container class="pa-md-4 mx-lg-auto">
 
-          <v-row no-gutters class="my-1">
-            <v-col cols="12" sm="1" md="1">Languages:</v-col>
-
-            <v-card cols="4" class="px-1">
-              <v-autocomplete v-model="selectedLang" item-text="name" item-value="id" :items="languages">
+          <v-row no-gutters class="my-2">
+            <v-col cols="12" sm="2" md="1">Languages:</v-col>
+            <v-col cols="3">
+              <v-autocomplete v-model="selectedLang" item-text="name" item-value="id" :items="languages"
+                dense filled outlined>
               </v-autocomplete>
-            </v-card>
+            </v-col>
           </v-row>
 
-          <v-row no-gutters class="my-1">
-            <v-col cols="12" sm="1" md="1">Source:</v-col>
+          <v-row no-gutters class="my-2">
+            <v-col cols="12" sm="2" md="1">Source:</v-col>
 
             <textarea class="source pa-1" v-model="source" v-on:input="changeCode"
               placeholder="Please paste your source code here."></textarea>
           </v-row>
 
-          <v-row no-gutters class="my-1">
-            <v-col cols="12" sm="1" md="1">URL:</v-col>
+          <v-row no-gutters class="my-2">
+            <v-col cols="12" sm="2" md="1">URL:</v-col>
             <textarea readonly class="url" v-bind:value="url"></textarea>
           </v-row>
-          <v-row no-gutters class="my-1">
-            <v-col cols="12" sm="1" md="1">Code:</v-col>
+          <v-row no-gutters class="my-2">
+            <v-col cols="12" sm="2" md="1">Code:</v-col>
             <v-card height="80%" class="scroll">
               <pre><code v-bind:class="computeLang" ref="code"> </code></pre>
             </v-card>
