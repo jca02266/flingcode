@@ -130,7 +130,6 @@
   <script src="mylib.js"></script>
   <script>
     "use strict"
-    console.log(mylib)
     const data = {
       source: `Dim x as String
 ' コメント
@@ -152,7 +151,7 @@ Debug.Print "Hello, World"`,
         if (location.search) {
           const query = location.search.startsWith("?") ? location.search.slice(1) : location.search
           const params = query.split('&').map((param) => param.split('='))
-          console.log(params)
+
           for (const param of params) {
             if (param[0] === "source") {
               const base64string = param[1]
