@@ -128,6 +128,47 @@
   <script>
     "use strict"
 
+    const languageNames = {
+      apache          : "Apache config",
+      bash            : "Bash",
+      c               : "C",
+      coffeescript    : "CoffeeScript",
+      cpp             : "C++",
+      csharp          : "C#",
+      css             : "CSS",
+      diff            : "Diff",
+      go              : "Go",
+      http            : "HTTP",
+      ini             : "INI, TOML",
+      java            : "Java",
+      javascript      : "JavaScript",
+      json            : "JSON",
+      kotlin          : "Kotlin",
+      less            : "Less",
+      lua             : "Lua",
+      makefile        : "Makefile",
+      markdown        : "Markdown",
+      nginx           : "Nginx config",
+      objectivec      : "Objective-C",
+      perl            : "Perl",
+      php             : "PHP",
+      "php-template"  : "PHP Template",
+      plaintext       : "Plain text",
+      properties      : "Java Properties",
+      python          : "Python",
+      "python-repl"   : "Python REPL",
+      r               : "R",
+      ruby            : "Ruby",
+      rust            : "Rust",
+      scss            : "SCSS",
+      shell           : "Shell Session",
+      sql             : "SQL",
+      swift           : "Swift",
+      typescript      : "TypeScript",
+      vbnet           : "Visual Basic .NET",
+      xml             : "HTML, XML",
+      yaml            : "YAML",
+    }
     const data = {
       source: `Dim x as String
 ' コメント
@@ -141,8 +182,10 @@ Debug.Print "Hello, World"`,
       created: function () {
         this.languages = []
         this.languages.push({ name: this.selectedLang, id: this.selectedLang })
-        hljs.listLanguages().forEach((id, i) => {
-          this.languages.push({ name: id, id: id })
+        const compare = new Intl.Collator('en').compare
+        hljs.listLanguages().sort((a, b) => compare(languageNames[a], languageNames[b])).forEach((id, i) => {
+            console.log(id)
+          this.languages.push({ name: languageNames[id], id: id })
         })
         this.location = location.href.replace(/\?.*/, '')
         if (location.search) {
