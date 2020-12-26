@@ -96,7 +96,7 @@
             <v-col cols="12" sm="1" md="1">Languages:</v-col>
 
             <v-card cols="4" class="px-1">
-              <v-select v-model="selectedLang" item-text="name" item-value="id" :items="languages"></v-select>
+              <v-autocomplete v-model="selectedLang" item-text="name" item-value="id" :items="languages"></v-autocomplete>
             </v-card>
           </v-row>
 
@@ -165,7 +165,7 @@
       sql             : "SQL",
       swift           : "Swift",
       typescript      : "TypeScript",
-      vbnet           : "Visual Basic .NET",
+      vbnet           : "Visual Basic .NET, VB",
       xml             : "HTML, XML",
       yaml            : "YAML",
     }
