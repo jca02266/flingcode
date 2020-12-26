@@ -85,9 +85,18 @@
         <v-container class="pa-md-4 mx-lg-auto">
 
           <v-row no-gutters class="my-1">
+            <v-col cols="12" sm="1" md="1">Languages:</v-col>
+
+            <v-card cols="4" class="px-1">
+              <v-select v-model="selectedLang" item-text="name" item-value="id" :items="languages"></v-select>
+            </v-card>
+          </v-row>
+
+          <v-row no-gutters class="my-1">
             <v-col cols="12" sm="1" md="1">Source:</v-col>
 
-            <textarea class="source" v-model="source" v-on:input="changeCode" placeholder="Please paste your source code here."></textarea>
+            <textarea class="source pa-1" v-model="source" v-on:input="changeCode"
+              placeholder="Please paste your source code here."></textarea>
           </v-row>
 
           <v-row no-gutters class="my-1">
@@ -97,7 +106,7 @@
           <v-row no-gutters class="my-1">
             <v-col cols="12" sm="1" md="1">Code:</v-col>
             <v-card height="80%" class="scroll">
-            <pre><code class="VB.net" ref="code"> </code></pre>
+              <pre><code v-bind:class="computeLang" ref="code"> </code></pre>
             </v-card>
           </v-row>
         </v-container>
@@ -114,21 +123,37 @@
     const data = {
       source: `Dim x as String
 ' コメント
-Debug.Print "Hello, World"`
+Debug.Print "Hello, World"`,
+      selectedLang: "auto"
     }
-    new Vue({
+    const vm = new Vue({
       el: '#app',
       data: data,
       vuetify: new Vuetify(),
       created: function () {
+        this.languages = []
+        this.languages.push({ name: this.selectedLang, id: this.selectedLang })
+        hljs.listLanguages().forEach((id, i) => {
+          this.languages.push({ name: id, id: id })
+        })
         this.location = location.href.replace(/\?.*/, '')
         if (location.search) {
-          const m = location.search.match(/\bsource=(.*)/)
-          if (m) {
-            const base64string = m[1]
-            const source = LZString.decompressFromBase64(base64string)
-            if (source) {
-              this.source = source
+          const query = location.search.startsWith("?") ? location.search.slice(1) : location.search
+          const params = query.split('&').map((param) => param.split('='))
+          console.log(params)
+          for (const param of params) {
+            if (param[0] === "source") {
+              const base64string = param[1]
+              const source = LZString.decompressFromBase64(base64string)
+              if (source) {
+                this.source = source
+              }
+            }
+            if (param[0] === "lang") {
+              const selectedLang = param[1]
+              if (hljs.listLanguages().includes(selectedLang)) {
+                this.selectedLang = selectedLang
+              }
             }
           }
         }
@@ -139,10 +164,17 @@ Debug.Print "Hello, World"`
         }
       },
       computed: {
+        computeLang: function () {
+          if (this.selectedLang === "auto") {
+            return null
+          } else {
+            return "language-" + this.selectedLang
+          }
+        },
         url: function () {
           const base64string = LZString.compressToBase64(this.source)
 
-          return this.location + "?source=" + base64string
+          return this.location + `?lang=${this.selectedLang}&source=${base64string}"`
         }
       },
       methods: {
