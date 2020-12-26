@@ -63,7 +63,7 @@
       border: 1px solid #dbdbdb;
 
       width: 80%;
-      height: 2em;
+      height: 3em;
       font-size: 1em;
       line-height: 1.2;
 
@@ -84,8 +84,8 @@
         <v-container class="pa-md-4 mx-lg-auto">
 
           <textarea class="source" v-model="source" v-on:input="changeCode" placeholder="source"></textarea>
+          <textarea readonly class="url" v-bind:value="url"></textarea>
           <pre><code class="VB.net" ref="code"> </code></pre>
-          <textarea class="url" v-bind:value="url"></textarea>
         </v-container>
 
       </v-main>
