@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/vs.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+  </script>
+
+  <style>
+    /* for block of numbers */
+    .hljs-ln-numbers {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      text-align: center;
+      color: #ccc;
+      border-right: 1px solid #CCC;
+      vertical-align: top;
+      padding-right: 5px;
+
+      /* your custom style here */
+    }
+
+    /* for block of code */
+    .hljs-ln-code {
+      padding-left: 10px;
+    }
+
+    .source {
+      resize: none;
+      color: #7b7b7b;
+      border: 1px solid #dbdbdb;
+
+      width: 80%;
+      height: 120px;
+      font-size: 1em;
+      line-height: 1.2;
+
+      white-space: pre;
+      overflow-wrap: normal;
+      overflow: auto;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+      <v-navigation-drawer app>
+      </v-navigation-drawer>
+      <v-app-bar app>
+      </v-app-bar>
+
+      <v-main>
+        <v-container class="pa-md-4 mx-lg-auto">
+
+          <textarea class="source" v-model="source" v-on:input="changeCode" placeholder="source"></textarea>
+          <pre><code class="VB.net" ref="code"> </code></pre>
+        </v-container>
+
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    "use strict"
+
+    const data = {
+      source: `Dim x as String
+' コメント
+Debug.Print "Hello, World"`
+    }
+    new Vue({
+      el: '#app',
+      data: data,
+      vuetify: new Vuetify(),
+      computed: {
+      },
+      methods: {
+        changeCode: function (e) {
+          this.$refs.code.innerHTML = this.source
+          hljs.highlightBlock(this.$refs.code);
+        }
+      }
+    })
+
+
+
+  </script>
+</body>
+
+</html>
