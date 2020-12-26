@@ -15,4 +15,5 @@ open dist/index.html
 
 ```
 yarn add -D eslint eslint-config-prettier prettier
+yarn add -D webpack webpack-cli webpack-dev-server
 ```
