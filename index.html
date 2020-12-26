@@ -43,7 +43,7 @@
 
     .source {
       resize: none;
-      color: #7b7b7b;
+      color: #2c2c2c;
       border: 1px solid #dbdbdb;
 
       width: 80%;
@@ -83,9 +83,22 @@
       <v-main>
         <v-container class="pa-md-4 mx-lg-auto">
 
-          <textarea class="source" v-model="source" v-on:input="changeCode" placeholder="source"></textarea>
-          <textarea readonly class="url" v-bind:value="url"></textarea>
-          <pre><code class="VB.net" ref="code"> </code></pre>
+          <v-row no-gutters class="my-1">
+            <v-col cols="1">Source:</v-col>
+
+            <textarea class="source" v-model="source" v-on:input="changeCode" placeholder="Please paste your source code here."></textarea>
+          </v-row>
+
+          <v-row no-gutters class="my-1">
+            <v-col cols="1">URL:</v-col>
+            <textarea readonly class="url" v-bind:value="url"></textarea>
+          </v-row>
+          <v-row no-gutters class="my-1">
+            <v-col cols="1">Code:</v-col>
+            <v-card height="80%" class="scroll">
+            <pre><code class="VB.net" ref="code"> </code></pre>
+            </v-card>
+          </v-row>
         </v-container>
 
       </v-main>
@@ -106,23 +119,42 @@ Debug.Print "Hello, World"`
       el: '#app',
       data: data,
       vuetify: new Vuetify(),
-      computed: {
-          url: function() {
-              return LZString.compressToBase64(this.source)
+      created: function () {
+        this.location = location.href.replace(/\?.*/, '')
+        if (location.search) {
+          const m = location.search.match(/\bsource=(.*)/)
+          if (m) {
+            const base64string = m[1]
+            const source = LZString.decompressFromBase64(base64string)
+            if (source) {
+              this.source = source
+            }
           }
+        }
+      },
+      mounted: function () {
+        if (this.source) {
+          this.changeCode();
+        }
+      },
+      computed: {
+        url: function () {
+          const base64string = LZString.compressToBase64(this.source)
+
+          return this.location + "?source=" + base64string
+        }
       },
       methods: {
         changeCode: function (e) {
-          this.$refs.code.innerHTML = this.source.replace(/&/g,"&amp;")
-                                                .replace(/"/g,"&quot;")
-                                                .replace(/</g,"&lt;")
-                                                .replace(/>/g,"&gt;");
+          this.$refs.code.innerHTML = this.source.replace(/&/g, "&amp;")
+            .replace(/"/g, "&quot;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
           hljs.highlightBlock(this.$refs.code);
+          hljs.lineNumbersBlock(this.$refs.code);
         }
       }
     })
-
-
 
   </script>
 </body>
