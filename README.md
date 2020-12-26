@@ -5,6 +5,14 @@
 
 # build
 
+```
 yarn install
 yarn build
 open dist/index.html
+```
+
+# develop environment
+
+```
+yarn add -D eslint eslint-config-prettier prettier
+```

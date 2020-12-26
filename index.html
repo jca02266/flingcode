@@ -70,9 +70,10 @@
 
       overflow: auto;
     }
+
     .subheading {
-        color: #525252;
-        font-size: small;
+      color: #525252;
+      font-size: small;
     }
   </style>
 </head>
@@ -83,10 +84,10 @@
       <v-navigation-drawer app>
       </v-navigation-drawer>
       <v-app-bar app>
-          <v-toolbar-title>
-            FlingCode
-            <span class="subheading">Easy to share code</span>
-          </v-toolbar-title>
+        <v-toolbar-title>
+          FlingCode
+          <span class="subheading">Easy to share code</span>
+        </v-toolbar-title>
       </v-app-bar>
 
       <v-main>
@@ -96,7 +97,8 @@
             <v-col cols="12" sm="1" md="1">Languages:</v-col>
 
             <v-card cols="4" class="px-1">
-              <v-autocomplete v-model="selectedLang" item-text="name" item-value="id" :items="languages"></v-autocomplete>
+              <v-autocomplete v-model="selectedLang" item-text="name" item-value="id" :items="languages">
+              </v-autocomplete>
             </v-card>
           </v-row>
 
@@ -129,45 +131,45 @@
     "use strict"
 
     const languageNames = {
-      apache          : "Apache config",
-      bash            : "Bash",
-      c               : "C",
-      coffeescript    : "CoffeeScript",
-      cpp             : "C++",
-      csharp          : "C#",
-      css             : "CSS",
-      diff            : "Diff",
-      go              : "Go",
-      http            : "HTTP",
-      ini             : "INI, TOML",
-      java            : "Java",
-      javascript      : "JavaScript",
-      json            : "JSON",
-      kotlin          : "Kotlin",
-      less            : "Less",
-      lua             : "Lua",
-      makefile        : "Makefile",
-      markdown        : "Markdown",
-      nginx           : "Nginx config",
-      objectivec      : "Objective-C",
-      perl            : "Perl",
-      php             : "PHP",
-      "php-template"  : "PHP Template",
-      plaintext       : "Plain text",
-      properties      : "Java Properties",
-      python          : "Python",
-      "python-repl"   : "Python REPL",
-      r               : "R",
-      ruby            : "Ruby",
-      rust            : "Rust",
-      scss            : "SCSS",
-      shell           : "Shell Session",
-      sql             : "SQL",
-      swift           : "Swift",
-      typescript      : "TypeScript",
-      vbnet           : "Visual Basic .NET, VB",
-      xml             : "HTML, XML",
-      yaml            : "YAML",
+      apache: "Apache config",
+      bash: "Bash",
+      c: "C",
+      coffeescript: "CoffeeScript",
+      cpp: "C++",
+      csharp: "C#",
+      css: "CSS",
+      diff: "Diff",
+      go: "Go",
+      http: "HTTP",
+      ini: "INI, TOML",
+      java: "Java",
+      javascript: "JavaScript",
+      json: "JSON",
+      kotlin: "Kotlin",
+      less: "Less",
+      lua: "Lua",
+      makefile: "Makefile",
+      markdown: "Markdown",
+      nginx: "Nginx config",
+      objectivec: "Objective-C",
+      perl: "Perl",
+      php: "PHP",
+      "php-template": "PHP Template",
+      plaintext: "Plain text",
+      properties: "Java Properties",
+      python: "Python",
+      "python-repl": "Python REPL",
+      r: "R",
+      ruby: "Ruby",
+      rust: "Rust",
+      scss: "SCSS",
+      shell: "Shell Session",
+      sql: "SQL",
+      swift: "Swift",
+      typescript: "TypeScript",
+      vbnet: "Visual Basic .NET, VB",
+      xml: "HTML, XML",
+      yaml: "YAML",
     }
     const data = {
       source: `Dim x as String
@@ -184,7 +186,6 @@ Debug.Print "Hello, World"`,
         this.languages.push({ name: this.selectedLang, id: this.selectedLang })
         const compare = new Intl.Collator('en').compare
         hljs.listLanguages().sort((a, b) => compare(languageNames[a], languageNames[b])).forEach((id, i) => {
-            console.log(id)
           this.languages.push({ name: languageNames[id], id: id })
         })
         this.location = location.href.replace(/\?.*/, '')
@@ -229,13 +230,13 @@ Debug.Print "Hello, World"`,
         }
       },
       methods: {
-        escapeHTML: function(value) {
+        escapeHTML: function (value) {
           return value
-              .replace(/&/g, '&amp;')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
-              .replace(/"/g, '&quot;')
-              .replace(/'/g, '&#x27;');
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#x27;');
         },
         changeCode: function (e) {
           this.$refs.code.innerHTML = this.escapeHTML(this.source);

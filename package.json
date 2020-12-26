@@ -4,5 +4,10 @@
   },
   "dependencies": {
     "lz-string": "^1.4.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "prettier": "^2.2.1"
   }
 }
