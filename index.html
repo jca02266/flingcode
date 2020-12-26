@@ -89,17 +89,17 @@
         <v-container class="pa-md-4 mx-lg-auto">
 
           <v-row no-gutters class="my-1">
-            <v-col cols="1">Source:</v-col>
+            <v-col cols="12" sm="1" md="1">Source:</v-col>
 
             <textarea class="source" v-model="source" v-on:input="changeCode" placeholder="Please paste your source code here."></textarea>
           </v-row>
 
           <v-row no-gutters class="my-1">
-            <v-col cols="1">URL:</v-col>
+            <v-col cols="12" sm="1" md="1">URL:</v-col>
             <textarea readonly class="url" v-bind:value="url"></textarea>
           </v-row>
           <v-row no-gutters class="my-1">
-            <v-col cols="1">Code:</v-col>
+            <v-col cols="12" sm="1" md="1">Code:</v-col>
             <v-card height="80%" class="scroll">
             <pre><code class="VB.net" ref="code"> </code></pre>
             </v-card>
