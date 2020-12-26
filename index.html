@@ -230,10 +230,7 @@ Debug.Print "Hello, World"`,
       },
       methods: {
         changeCode: function (e) {
-          this.$refs.code.innerHTML = this.source.replace(/&/g, "&amp;")
-            .replace(/"/g, "&quot;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
+          this.$refs.code.innerText = this.source;
           hljs.highlightBlock(this.$refs.code);
           hljs.lineNumbersBlock(this.$refs.code);
         }
