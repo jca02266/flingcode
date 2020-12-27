@@ -64,16 +64,8 @@ const vm = new Vue({
     }
   },
   methods: {
-    escapeHTML: function (value) {
-      return value
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#x27;');
-    },
     changeCode: function (e) {
-      this.$refs.code.innerHTML = this.escapeHTML(this.source);
+      this.$refs.code.innerHTML = mylib.escapeHTML(this.source);
       hljs.highlightBlock(this.$refs.code);
       hljs.lineNumbersBlock(this.$refs.code);
     }

@@ -1,4 +1,4 @@
-const languageNames = {
+export const languageNames = {
     apache: "Apache config",
     bash: "Bash",
     c: "C",
@@ -40,4 +40,11 @@ const languageNames = {
     yaml: "YAML",
 }
 
-export { languageNames }
+export function escapeHTML(value) {
+    return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+}
