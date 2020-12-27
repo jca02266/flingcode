@@ -5,6 +5,47 @@ import * as mylib from '@/mylib'
 
 Vue.use(Vuetify)
 
+function parseURL(urlString, defaultSource, defaultLang) {
+  const url = new URL(urlString)
+
+  const base64string = url.searchParams.get('source')
+  let source = LZString.decompressFromBase64(base64string)
+  if (base64string == null || source !== "") {
+    // If the query parameter source is specified and invalid
+    // Leave the source variable empty.
+    source = defaultSource
+  }
+
+  const lang = url.searchParams.get('lang')
+  let selectedLang
+  if (hljs.listLanguages().includes(lang)) {
+    selectedLang = lang
+  } else {
+    selectedLang = defaultLang
+  }
+
+  return {
+    url,
+    source,
+    selectedLang,
+  }
+}
+
+function createURL(url, source, selectedLang) {
+  const newUrl = new URL(url.href)
+  if (selectedLang) {
+    newUrl.searchParams.set("lang", selectedLang)
+  }
+
+  newUrl.searchParams.delete("source")
+  if (source) {
+    const base64string = LZString.compressToBase64(source)
+    newUrl.searchParams.set("source", base64string)
+  }
+
+  return newUrl.href
+}
+
 const data = {
   source: `Dim x as String
 ' コメント
@@ -25,16 +66,10 @@ const vm = new Vue({
     })
 
     // parse URL
-    this.originalUrl = new URL(location.href)
-
-    const base64string = this.originalUrl.searchParams.get('source')
-    if (base64string) {
-      this.source = LZString.decompressFromBase64(base64string)
-    }
-    const selectedLang = this.originalUrl.searchParams.get('lang')
-    if (hljs.listLanguages().includes(selectedLang)) {
-      this.selectedLang = selectedLang
-    }
+    const parsedURL = parseURL(location.href, this.source, this.selectedLang)
+    this.originalUrl = parsedURL.url
+    this.source = parsedURL.source
+    this.selectedLang = parsedURL.selectedLang
   },
   mounted: function () {
     if (this.source) {
@@ -50,17 +85,7 @@ const vm = new Vue({
       }
     },
     url: function () {
-      if (this.selectedLang) {
-        this.originalUrl.searchParams.set("lang", this.selectedLang)
-      }
-
-      this.originalUrl.searchParams.delete("source")
-      if (this.source) {
-        const base64string = LZString.compressToBase64(this.source)
-        this.originalUrl.searchParams.set("source", base64string)
-      }
-
-      return this.originalUrl.href
+      return createURL(this.originalUrl, this.source, this.selectedLang)
     }
   },
   methods: {
