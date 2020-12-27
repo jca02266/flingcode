@@ -20,6 +20,8 @@
   <script src="libs/lz-string.min.js"></script>
 
   <style>
+    [v-cloak] { display: none }
+
     .hljs-ln-numbers {
       -webkit-touch-callout: none;
       -webkit-user-select: none;
@@ -81,7 +83,7 @@
 
 <body>
   <div id="app">
-    <v-app>
+    <v-app v-cloak>
       <v-navigation-drawer app>
       </v-navigation-drawer>
       <v-app-bar app>
