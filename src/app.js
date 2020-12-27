@@ -19,29 +19,21 @@ const vm = new Vue({
     this.languages = []
     this.languages.push({ name: this.selectedLang, id: this.selectedLang })
     const compare = new Intl.Collator('en').compare
+
     hljs.listLanguages().sort((a, b) => compare(mylib.languageNames[a], mylib.languageNames[b])).forEach((id, i) => {
       this.languages.push({ name: mylib.languageNames[id], id: id })
     })
-    this.location = location.href.replace(/\?.*/, '')
-    if (location.search) {
-      const query = location.search.startsWith("?") ? location.search.slice(1) : location.search
-      const params = query.split('&').map((param) => param.split('='))
 
-      for (const param of params) {
-        if (param[0] === "source") {
-          const base64string = param[1]
-          const source = LZString.decompressFromBase64(base64string)
-          if (source) {
-            this.source = source
-          }
-        }
-        if (param[0] === "lang") {
-          const selectedLang = param[1]
-          if (hljs.listLanguages().includes(selectedLang)) {
-            this.selectedLang = selectedLang
-          }
-        }
-      }
+    // parse URL
+    this.originalUrl = new URL(location.href)
+
+    const base64string = this.originalUrl.searchParams.get('source')
+    if (base64string) {
+      this.source = LZString.decompressFromBase64(base64string)
+    }
+    const selectedLang = this.originalUrl.searchParams.get('lang')
+    if (hljs.listLanguages().includes(selectedLang)) {
+      this.selectedLang = selectedLang
     }
   },
   mounted: function () {
@@ -58,9 +50,17 @@ const vm = new Vue({
       }
     },
     url: function () {
-      const base64string = LZString.compressToBase64(this.source)
+      if (this.selectedLang) {
+        this.originalUrl.searchParams.set("lang", this.selectedLang)
+      }
 
-      return this.location + `?lang=${this.selectedLang}&source=${base64string}"`
+      this.originalUrl.searchParams.delete("source")
+      if (this.source) {
+        const base64string = LZString.compressToBase64(this.source)
+        this.originalUrl.searchParams.set("source", base64string)
+      }
+
+      return this.originalUrl.href
     }
   },
   methods: {
@@ -71,3 +71,6 @@ const vm = new Vue({
     }
   }
 })
+
+// for debugging
+// export { vm }
