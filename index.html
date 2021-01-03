@@ -185,7 +185,7 @@ Debug.Print "Hello, World"`,
         url: function () {
           const base64string = LZString.compressToBase64(this.source)
 
-          return this.location + `?lang=${this.selectedLang}&source=${base64string}"`
+          return this.location + `?lang=${this.selectedLang}&source=${base64string}`
         }
       },
       methods: {
