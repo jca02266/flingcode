@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify'
 //import 'vuetify/dist/vuetify.min.css'
 import * as mylib from '@/mylib'
+import { hljs, hljsln, languageNames } from "@/highlight.js"
 
 Vue.use(Vuetify)
 
@@ -57,12 +58,13 @@ const vm = new Vue({
   data: data,
   vuetify: new Vuetify(),
   created: function () {
+    hljsln(hljs)(window, document)
     this.languages = []
     this.languages.push({ name: this.selectedLang, id: this.selectedLang })
     const compare = new Intl.Collator('en').compare
 
-    hljs.listLanguages().sort((a, b) => compare(mylib.languageNames[a], mylib.languageNames[b])).forEach((id, i) => {
-      this.languages.push({ name: mylib.languageNames[id], id: id })
+    hljs.listLanguages().sort((a, b) => compare(languageNames[a], languageNames[b])).forEach((id, i) => {
+      this.languages.push({ name: languageNames[id], id: id })
     })
 
     // parse URL

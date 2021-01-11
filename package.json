@@ -5,6 +5,8 @@
     "watch": "webpack -w"
   },
   "dependencies": {
+    "highlight.js": "^10.5.0",
+    "highlightjs-line-numbers.js": "^2.8.0",
     "lz-string": "^1.4.4",
     "vue": "^2.6.12",
     "vuetify": "^2.4.0"

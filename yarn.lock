@@ -1630,6 +1630,16 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+highlight.js@^10.5.0:
+  version "10.5.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.5.0.tgz#3f09fede6a865757378f2d9ebdcbc15ba268f98f"
+  integrity sha512-xTmvd9HiIHR6L53TMC7TKolEj65zG1XU+Onr8oi86mYa+nLcIbxTTWkpW7CsEwv/vK7u1zb8alZIMLDqqN6KTw==
+
+highlightjs-line-numbers.js@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/highlightjs-line-numbers.js/-/highlightjs-line-numbers.js-2.8.0.tgz#479ea8cff0c31fadc1578a66fa03e38b801f9ca6"
+  integrity sha512-TEf1gw0c8mb8nan0QwliqS7obT4cpUd9hzsGzsZLweteNnWea/VIqy5/aQqsa5wnz9lnvmtAkS1ZtDTjB/goYQ==
+
 hpack.js@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/hpack.js/-/hpack.js-2.1.6.tgz#87774c0949e513f42e84575b3c45681fade2a0b2"
