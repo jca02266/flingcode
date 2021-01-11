@@ -2,7 +2,7 @@ const path = require('path');
 module.exports = {
   mode: 'development', // "production" | "development" | "none"
   entry: {
-    mylib: './src/mylib.js',
+    app: './src/app.js',
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -14,5 +14,9 @@ module.exports = {
   resolve: {
     modules: ["node_modules"],
     extensions: ['.js'],
+    alias: {
+        '@': path.resolve(__dirname, 'src'),
+        'vue$': 'vue/dist/vue.esm.js',
+    },
   }
 }

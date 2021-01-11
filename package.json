@@ -5,12 +5,19 @@
     "watch": "webpack -w"
   },
   "dependencies": {
-    "lz-string": "^1.4.4"
+    "highlight.js": "^10.5.0",
+    "highlightjs-line-numbers.js": "^2.8.0",
+    "lz-string": "^1.4.4",
+    "vue": "^2.6.12",
+    "vuetify": "^2.4.0"
   },
   "devDependencies": {
+    "deepmerge": "^4.2.2",
     "eslint": "^7.16.0",
     "eslint-config-prettier": "^7.1.0",
     "prettier": "^2.2.1",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
     "webpack": "^5.11.0",
     "webpack-cli": "^4.3.0",
     "webpack-dev-server": "^3.11.0"
