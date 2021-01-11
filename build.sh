@@ -1,4 +1,3 @@
-rm -rf ./dist
 mkdir -p dist/libs
 cp -a node_modules/lz-string/libs/lz-string.min.js dist/libs
 

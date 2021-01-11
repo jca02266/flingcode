@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "sh ./build.sh && webpack --mode=production",
+    "build": "rm -rf ./dist && sh ./build.sh && webpack --mode=production",
     "watch": "webpack -w"
   },
   "dependencies": {
