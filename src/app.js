@@ -9,10 +9,13 @@ Vue.use(Vuetify)
 function parseURL(urlString, defaultSource, defaultLang) {
   const url = new URL(urlString)
 
-  const base64string = url.searchParams.get('source')
+  let base64string = url.searchParams.get('source')
+  if (base64string) {
+    base64string = base64string.replace(/ /g, "+")
+  }
   let source = LZString.decompressFromBase64(base64string)
-  if (base64string == null || source !== "") {
-    // If the query parameter source is specified and invalid
+  if (base64string == null || source === "") {
+    // If the query parameter source is specified and invalid(null)
     // Leave the source variable empty.
     source = defaultSource
   }
